@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zork I: The Great Underground Empire</title>
+  <link rel="stylesheet" href="/css/terminal.css">
+</head>
+<body>
+  <div class="crt">
+    <div class="scanlines"></div>
+    <div class="terminal">
+      <div id="output" class="output"></div>
+      <div class="input-line">
+        <span class="prompt">&gt;</span>
+        <input
+          type="text"
+          id="input"
+          class="input"
+          autocomplete="off"
+          autocapitalize="off"
+          spellcheck="false"
+          autofocus
+        >
+      </div>
+    </div>
+  </div>
+  <script type="module" src="/js/main.js"></script>
+</body>
+</html>

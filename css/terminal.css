@@ -1,0 +1,229 @@
+/* CRT Terminal Styles for Zork I Web */
+
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+:root {
+  --terminal-green: #33ff33;
+  --terminal-green-dim: #20aa20;
+  --terminal-bg: #0a0a0a;
+  --glow-color: rgba(51, 255, 51, 0.4);
+  --scanline-color: rgba(0, 0, 0, 0.3);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  background: #000;
+  overflow: hidden;
+}
+
+/* CRT Monitor Frame */
+.crt {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: var(--terminal-bg);
+  overflow: hidden;
+  border-radius: 20px;
+}
+
+/* CRT Screen Curvature Effect */
+.crt::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 0%,
+    rgba(0, 0, 0, 0.2) 80%,
+    rgba(0, 0, 0, 0.6) 100%
+  );
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* Scanlines Overlay */
+.scanlines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 1px,
+    var(--scanline-color) 1px,
+    var(--scanline-color) 2px
+  );
+  pointer-events: none;
+  z-index: 2;
+  animation: scanline-flicker 0.05s infinite;
+}
+
+@keyframes scanline-flicker {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 0.85; }
+}
+
+/* Screen Flicker Effect */
+.crt::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: transparent;
+  pointer-events: none;
+  z-index: 4;
+  animation: screen-flicker 4s infinite;
+}
+
+@keyframes screen-flicker {
+  0%, 97%, 100% { opacity: 0; }
+  98% { opacity: 0.02; background: white; }
+}
+
+/* Terminal Container */
+.terminal {
+  position: relative;
+  height: 100%;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  z-index: 1;
+}
+
+/* Output Area */
+.output {
+  flex: 1;
+  overflow-y: auto;
+  font-family: 'VT323', monospace;
+  font-size: 20px;
+  line-height: 1.4;
+  color: var(--terminal-green);
+  text-shadow: 0 0 5px var(--glow-color), 0 0 10px var(--glow-color);
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+/* Custom Scrollbar */
+.output::-webkit-scrollbar {
+  width: 8px;
+}
+
+.output::-webkit-scrollbar-track {
+  background: var(--terminal-bg);
+}
+
+.output::-webkit-scrollbar-thumb {
+  background: var(--terminal-green-dim);
+  border-radius: 4px;
+}
+
+/* Input Line */
+.input-line {
+  display: flex;
+  align-items: center;
+  font-family: 'VT323', monospace;
+  font-size: 20px;
+  color: var(--terminal-green);
+  text-shadow: 0 0 5px var(--glow-color), 0 0 10px var(--glow-color);
+  padding-top: 10px;
+  border-top: 1px solid var(--terminal-green-dim);
+  margin-top: 10px;
+}
+
+.prompt {
+  margin-right: 8px;
+}
+
+.input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: 'VT323', monospace;
+  font-size: 20px;
+  color: var(--terminal-green);
+  text-shadow: 0 0 5px var(--glow-color), 0 0 10px var(--glow-color);
+  caret-color: var(--terminal-green);
+}
+
+/* Blinking Cursor */
+.input:focus {
+  animation: cursor-blink 1s step-end infinite;
+}
+
+@keyframes cursor-blink {
+  0%, 100% { caret-color: var(--terminal-green); }
+  50% { caret-color: transparent; }
+}
+
+/* Command Echo */
+.command-echo {
+  color: var(--terminal-green);
+  opacity: 0.8;
+}
+
+/* Status Messages */
+.status {
+  color: var(--terminal-green-dim);
+  font-style: italic;
+}
+
+/* Loading State */
+.loading {
+  animation: loading-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes loading-pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .terminal {
+    padding: 20px;
+  }
+
+  .output,
+  .input-line,
+  .input {
+    font-size: 16px;
+  }
+}
+
+/* Power-on Effect */
+@keyframes power-on {
+  0% {
+    filter: brightness(0);
+    transform: scale(1, 0.01);
+  }
+  50% {
+    filter: brightness(0.5);
+    transform: scale(1, 0.01);
+  }
+  70% {
+    filter: brightness(1);
+    transform: scale(1, 1);
+  }
+  100% {
+    filter: brightness(1);
+    transform: scale(1, 1);
+  }
+}
+
+.crt.power-on {
+  animation: power-on 0.8s ease-out forwards;
+}
