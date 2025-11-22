@@ -3,6 +3,9 @@
  * Connects ifvms.js Z-machine interpreter to CRT terminal UI
  */
 
+// Import CSS through Vite's build system
+import '../css/terminal.css';
+
 import { createGlk } from './glk-adapter.js';
 
 class ZorkTerminal {
