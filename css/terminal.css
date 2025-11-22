@@ -227,3 +227,159 @@ html, body {
 .crt.power-on {
   animation: power-on 0.8s ease-out forwards;
 }
+
+/* About Button */
+.about-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: transparent;
+  border: 2px solid var(--terminal-green-dim);
+  color: var(--terminal-green-dim);
+  font-family: 'VT323', monospace;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.2s ease;
+  text-shadow: 0 0 5px var(--glow-color);
+  box-shadow: 0 0 5px var(--glow-color);
+}
+
+.about-btn:hover {
+  border-color: var(--terminal-green);
+  color: var(--terminal-green);
+  text-shadow: 0 0 10px var(--glow-color);
+  box-shadow: 0 0 10px var(--glow-color);
+}
+
+.about-btn:focus {
+  outline: none;
+}
+
+/* Modal Overlay */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  z-index: 100;
+  justify-content: center;
+  align-items: center;
+  animation: modal-fade-in 0.3s ease;
+}
+
+.modal.active {
+  display: flex;
+}
+
+@keyframes modal-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Modal Content */
+.modal-content {
+  position: relative;
+  background: var(--terminal-bg);
+  border: 2px solid var(--terminal-green);
+  border-radius: 10px;
+  padding: 30px;
+  max-width: 500px;
+  width: 90%;
+  box-shadow:
+    0 0 20px var(--glow-color),
+    0 0 40px rgba(51, 255, 51, 0.2),
+    inset 0 0 20px rgba(0, 0, 0, 0.5);
+  animation: modal-scale-in 0.3s ease;
+}
+
+@keyframes modal-scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Modal Close Button */
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: transparent;
+  border: none;
+  color: var(--terminal-green-dim);
+  font-size: 28px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  line-height: 1;
+}
+
+.modal-close:hover {
+  color: var(--terminal-green);
+  text-shadow: 0 0 10px var(--glow-color);
+}
+
+.modal-close:focus {
+  outline: none;
+}
+
+/* Modal Typography */
+.modal-content h2 {
+  font-family: 'VT323', monospace;
+  font-size: 28px;
+  color: var(--terminal-green);
+  text-shadow: 0 0 10px var(--glow-color);
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.modal-body {
+  font-family: 'VT323', monospace;
+  font-size: 18px;
+  color: var(--terminal-green);
+  text-shadow: 0 0 5px var(--glow-color);
+  line-height: 1.6;
+}
+
+.modal-body p {
+  margin-bottom: 12px;
+}
+
+.modal-body a {
+  color: var(--terminal-green);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: all 0.2s ease;
+}
+
+.modal-body a:hover {
+  text-shadow: 0 0 15px var(--glow-color);
+}
+
+.modal-body .authors {
+  color: var(--terminal-green-dim);
+  font-style: italic;
+}
+
+.modal-divider {
+  border: none;
+  border-top: 1px solid var(--terminal-green-dim);
+  margin: 20px 0;
+}
+
+.modal-body .powered-by {
+  text-align: center;
+  font-size: 16px;
+  color: var(--terminal-green-dim);
+  margin-bottom: 0;
+}

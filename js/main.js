@@ -177,9 +177,46 @@ class ZorkTerminal {
   }
 }
 
+// About Modal functionality
+function initAboutModal() {
+  const aboutBtn = document.getElementById('about-btn');
+  const modal = document.getElementById('about-modal');
+  const closeBtn = document.getElementById('modal-close');
+
+  if (!aboutBtn || !modal || !closeBtn) return;
+
+  // Open modal
+  aboutBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    modal.classList.add('active');
+  });
+
+  // Close modal with X button
+  closeBtn.addEventListener('click', () => {
+    modal.classList.remove('active');
+  });
+
+  // Close modal when clicking outside
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      modal.classList.remove('active');
+    }
+  });
+
+  // Close modal with Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('active')) {
+      modal.classList.remove('active');
+    }
+  });
+}
+
 // Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
   const terminal = new ZorkTerminal();
   // Use Vite's base URL for correct path in production
   terminal.loadGame(import.meta.env.BASE_URL + 'zork1.z3');
+
+  // Initialize about modal
+  initAboutModal();
 });
