@@ -180,5 +180,6 @@ class ZorkTerminal {
 // Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
   const terminal = new ZorkTerminal();
-  terminal.loadGame('/zork1.z3');
+  // Use Vite's base URL for correct path in production
+  terminal.loadGame(import.meta.env.BASE_URL + 'zork1.z3');
 });
