@@ -446,30 +446,21 @@ export function createGlk(terminal) {
         win.line_input_buf = buf;
       }
 
-      console.log('[Glk] Requesting line input, buffer length:', maxlen, 'initlen:', initlen);
-
       terminal.waitForInput((input) => {
-        console.log('[Glk] Received input:', JSON.stringify(input));
-
         if (inputState.pending && inputState.buffer) {
           // Copy input to buffer
           const len = Math.min(input.length, inputState.maxLen);
-          console.log('[Glk] Writing', len, 'chars to buffer');
 
           for (let i = 0; i < len; i++) {
-            const charCode = input.charCodeAt(i);
-            inputState.buffer[i] = charCode;
+            inputState.buffer[i] = input.charCodeAt(i);
           }
 
-          // IMPORTANT: Set the input length in the event BEFORE resume is called
+          // Set the input length in the event BEFORE resume is called
           if (inputState.event) {
-            inputState.event.set_field(2, len);  // Set the input length!
-            console.log('[Glk] Set event field 2 (length) to:', len);
+            inputState.event.set_field(2, len);
           }
 
           inputState.pending = false;
-        } else {
-          console.warn('[Glk] No pending input or buffer is null!');
         }
       });
     },

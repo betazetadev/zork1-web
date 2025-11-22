@@ -98,8 +98,6 @@ class ZorkTerminal {
     const command = this.inputEl.value;
     this.inputEl.value = '';
 
-    console.log('[Terminal] handleCommand called with:', JSON.stringify(command));
-
     if (command.trim()) {
       // Add to history
       this.commandHistory.push(command);
@@ -118,24 +116,19 @@ class ZorkTerminal {
 
     // Call the pending input resolver
     if (this.inputResolver) {
-      console.log('[Terminal] Calling input resolver...');
       const resolver = this.inputResolver;
       this.inputResolver = null;
       resolver(command);
 
       // Resume the VM
       if (this.vm && !this.vm.quit) {
-        console.log('[Terminal] Resuming VM with length:', command.length);
         try {
           this.vm.resume(command.length);
-          console.log('[Terminal] VM resumed successfully');
         } catch (e) {
           console.error('VM resume error:', e);
           this.handleError(e.message);
         }
       }
-    } else {
-      console.warn('[Terminal] No input resolver pending!');
     }
   }
 
